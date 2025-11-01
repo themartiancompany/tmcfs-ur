@@ -76,6 +76,7 @@ _pkgdesc=(
 )
 pkgdesc="${_pkgdesc[*]}"
 pkgver=1.8.7
+_commit="17bbfff4add818aa762a9bfceca10d29143e2fb8"
 pkgrel=1
 arch=(
   'any'
@@ -97,8 +98,8 @@ makedepends=(
 )
 _tarname="${_pkg}-${pkgver}"
 _tarfile="${_tarname}.${_archive_format}"
-_sum="c0d39ad4cb5b5991b3860eeeba64d8d4f1aeb8f28035b08e12fb86182ca7456f"
-_sig_sum="1266c50d81a552dea0ba6ad4f435c83efb107bf056ceeaaddfb236f711f1be65"
+_sum="954b7c47c94833a8bfdbc42283296ed67e8a7c23ecbb55f57ca1f625eb2f8a1f"
+_sig_sum="4e1e1884a4cb8ca40cabb87e0af9ae1e578a12a6b65c7056e4c88acb12a1ecfd"
 # Dvorak
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
 # Truocolo
