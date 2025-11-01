@@ -19,7 +19,7 @@
 [comment]: <> (License along with this program.)
 [comment]: <> (If not, see <https://www.gnu.org/licenses/>.)
 
-# `nodejs-serve`
+# `nodejs-happy-opfs`
 
 universal recipe for
 [user repo](

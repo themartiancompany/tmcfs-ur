@@ -63,29 +63,31 @@ if [[ ! -v "${_archive_format}" ]]; then
     fi
   fi
 fi
-_pkg=serve
+_pkg=happy-opfs
 pkgbase="${_node}-${_pkg}"
 pkgname=(
   "${pkgbase}"
 )
 _pkgdesc=(
-  'Quick HTTP server'
+  "Browser-compatible fs module"
+  "based on OPFS, which references"
+  "the Deno Runtime File System"
+  "and Deno @std/fs APIs."
 )
 pkgdesc="${_pkgdesc[*]}"
-pkgver=14.2.5
+pkgver=1.8.7
 pkgrel=1
 arch=(
   'any'
 )
 _http="https://${_git_http}.com"
-_ns="vercel"
+_ns="JiangJie"
 url="${_http}/${_ns}/${_pkg}"
 license=(
   'MIT'
 )
 depends=(
   "${_node}"
-  "${_node}-inherits"
 )
 provides=(
   "${_pkg}=${pkgver}"
@@ -119,7 +121,7 @@ if [[ "${_evmfs}" == "true" ]]; then
   sha256sums+=(
     "${_sig_sum}"
   )
-elif [[ "${_evmfs}" == "true" ]]; then
+elif [[ "${_evmfs}" == "false" ]]; then
   if [[ "${_npm}" == "true" ]]; then
     _uri="${_npm_http}/${_pkg}/-/${_tarfile}"
   fi
@@ -167,6 +169,5 @@ package_nodejs-serve() {
     "${pkgdir}/usr" \
     "${_find_opts[@]}"
 }
-
 
 # vim:set sw=2 sts=-1 et:
