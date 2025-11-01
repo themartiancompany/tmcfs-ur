@@ -63,7 +63,7 @@ if [[ ! -v "${_archive_format}" ]]; then
     fi
   fi
 fi
-_pkg=happy-opfs
+_pkg=rollup
 pkgbase="${_node}-${_pkg}"
 pkgname=(
   "${pkgbase}"
@@ -75,7 +75,7 @@ _pkgdesc=(
   "and Deno @std/fs APIs."
 )
 pkgdesc="${_pkgdesc[*]}"
-pkgver=1.8.7
+pkgver=4.52.5
 _commit="17bbfff4add818aa762a9bfceca10d29143e2fb8"
 pkgrel=1
 arch=(

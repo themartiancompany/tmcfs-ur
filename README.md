@@ -19,7 +19,7 @@
 [comment]: <> (License along with this program.)
 [comment]: <> (If not, see <https://www.gnu.org/licenses/>.)
 
-# `nodejs-happy-opfs`
+# `nodejs-rollup`
 
 universal recipe for
 [user repo](
