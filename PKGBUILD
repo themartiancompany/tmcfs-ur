@@ -98,8 +98,8 @@ makedepends=(
 )
 _tarname="${_pkg}-${pkgver}"
 _tarfile="${_tarname}.${_archive_format}"
-_sum="954b7c47c94833a8bfdbc42283296ed67e8a7c23ecbb55f57ca1f625eb2f8a1f"
-_sig_sum="4e1e1884a4cb8ca40cabb87e0af9ae1e578a12a6b65c7056e4c88acb12a1ecfd"
+_sum="d49906ca8f1488dc73fb20e692523cbd1f778caaecefeb368166e0fb6d9d78ef"
+_sig_sum="1d56d23d54614c9a64d175cf67661d3389967c1b8911bdd07c2c36d3e73d8ca0"
 # Dvorak
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
 # Truocolo
@@ -115,13 +115,15 @@ _npm_http="http://registry.npmjs.org"
 source=()
 sha256sums=()
 if [[ "${_evmfs}" == "true" ]]; then
-  _uri="${_evmfs_uri}"
-  source+=(
-    "${_sig_src}"
-  )
-  sha256sums+=(
-    "${_sig_sum}"
-  )
+  if [[ "${_npm}" == "true" ]]; then
+    _uri="${_evmfs_uri}"
+    source+=(
+      "${_sig_src}"
+    )
+    sha256sums+=(
+      "${_sig_sum}"
+    )
+  fi
 elif [[ "${_evmfs}" == "false" ]]; then
   if [[ "${_npm}" == "true" ]]; then
     _uri="${_npm_http}/${_pkg}/-/${_tarfile}"
