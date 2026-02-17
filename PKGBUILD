@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0
 
 #    ----------------------------------------------------------------------
-#    Copyright © 2024, 2025  Pellegrino Prevete
+#    Copyright © 2024, 2025, 2026  Pellegrino Prevete
 #
 #    All rights reserved
 #    ----------------------------------------------------------------------
@@ -48,7 +48,7 @@ if [[ "${_os}" == "Android" ]]; then
   _node="nodejs-lts"
 fi
 if [[ ! -v "_npm" ]]; then
-  _npm="true"
+  _npm="false"
 fi
 if [[ ! -v "_git_http" ]]; then
   _git_http="github"
@@ -61,29 +61,29 @@ if [[ ! -v "${_archive_format}" ]]; then
     fi
   fi
 fi
-_pkg=rollup
+_pkg=opfs
 pkgbase="${_node}-${_pkg}"
 pkgname=(
   "${pkgbase}"
 )
 _pkgdesc=(
-  "Browser-compatible fs module"
-  "based on OPFS, which references"
-  "the Deno Runtime File System"
-  "and Deno @std/fs APIs."
+  "Browser-compatible 'fs' module"
+  "obtained combining the"
+  "'Happy OPFS' and the"
+  "OPFS Tools modules."
 )
 pkgdesc="${_pkgdesc[*]}"
-pkgver=4.52.5
-_commit="17bbfff4add818aa762a9bfceca10d29143e2fb8"
+_commit="8560a11f42a0e0208e7e915daca6b811dfea860d"
+pkgver="2.0.5"
 pkgrel=1
 arch=(
   'any'
 )
 _http="https://${_git_http}.com"
-_ns="JiangJie"
+_ns="themartiancompany"
 url="${_http}/${_ns}/${_pkg}"
 license=(
-  'MIT'
+  'AGPL3'
 )
 depends=(
   "${_node}"
@@ -94,10 +94,23 @@ provides=(
 makedepends=(
   "npm"
 )
-_tarname="${_pkg}-${pkgver}"
+if [[ "${_npm}" == "true" ]]; then
+  _tag="${pkgver}"
+  _tag_name="pkgver"
+elif [[ "${_npm}" == "false" ]]; then
+  _tag="${_commit}"
+  _tag_name="commit"
+fi
+_tarname="${_pkg}-${_tag}"
+_npm_tarname="${_ns}-${_pkg}-${_tag}"
 _tarfile="${_tarname}.${_archive_format}"
-_sum="d49906ca8f1488dc73fb20e692523cbd1f778caaecefeb368166e0fb6d9d78ef"
-_sig_sum="6122a66cdcdbfe0c58c0744db63d3ce9cebcf2c12080a5765f149b964807d8a0"
+_npm_tarfile="${_npm_tarname}.${_archive_format}"
+_sum="c260bc56e3eb822f96ea10bdef55b4158a7cc5b4ec55503f61f1cdff367e407a"
+_sig_sum="bca05e0d77e803cbfbf8304192b62964159fe71e6bcb8023bcae5954eab6258a"
+_bundle_sum="e7bf622ac1afab6ebdd14f6ff621874d24aca9e4899f1fa7616a84faea4ed81c"
+_bundle_sig_sum="bdf198594304ccfd8d262ffa4ff5f1a0511ee198a73b1c74ed227f346eda4998"
+_npm_sum="e6f8f5b672465be2bfac83de21f575578612afe510b8fc059e1ce839c4cdc021"
+_npm_sig_sum="39f80370d9cf9b32cb9a41b9976ad9a8915ba7c4350ba24b7729b39af6ba3d39"
 # Dvorak
 _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
 # Truocolo
@@ -107,25 +120,61 @@ _evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
 _evmfs_dir="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}"
 _evmfs_uri="${_evmfs_dir}/${_sum}"
 _evmfs_src="${_tarfile}::${_evmfs_uri}"
-_sig_uri="${_evmfs_dir}/${_sig_sum}"
-_sig_src="${_tarfile}.sig::${_sig_uri}"
+_bundle_uri="${_evmfs_dir}/${_bundle_sum}"
+_bundle_src="${_tarfile}::${_bundle_uri}"
+_evmfs_npm_uri="${_evmfs_dir}/${_npm_sum}"
+_evmfs_npm_src="${_tarfile}::${_evmfs_npm_uri}"
+_evmfs_sig_uri="${_evmfs_dir}/${_sig_sum}"
+_evmfs_sig_src="${_tarfile}.sig::${_evmfs_sig_uri}"
+_bundle_sig_uri="${_evmfs_dir}/${_bundle_sig_sum}"
+_bundle_sig_src="${_tarfile}.sig::${_bundle_sig_uri}"
+_npm_sig_uri="${_evmfs_dir}/${_npm_sig_sum}"
+_npm_sig_src="${_tarfile}.sig::${_npm_sig_uri}"
 _npm_http="http://registry.npmjs.org"
 source=()
 sha256sums=()
 if [[ "${_evmfs}" == "true" ]]; then
   if [[ "${_npm}" == "true" ]]; then
-    _uri="${_evmfs_uri}"
-    source+=(
-      "${_sig_src}"
-    )
-    sha256sums+=(
-      "${_sig_sum}"
-    )
+    _uri="${_evmfs_npm_uri}"
+    _sum="${_evmfs_npm_sum}"
+    _sig_src="${_evmfs_npm_uri}"
+    _sig_sum="${_npm_sig_sum}"
+  elif [[ "${_npm}" == "false" ]]; then
+    if [[ "${_git}" == "true" ]]; then
+      _uri="${_bundle_uri}"
+      _sum="${_bundle_sum}"
+      _sig_src="${_bundle_sig_src}"
+      _sig_sum="${_bundle_sig_sum}"
+    elif [[ "${_git}" == "false" ]]; then
+      _uri="${_evmfs_uri}"
+      _sig_src="${_evmfs_sig_src}"
+    fi
   fi
+  source+=(
+    "${_sig_src}"
+  )
+  sha256sums+=(
+    "${_sig_sum}"
+  )
 elif [[ "${_evmfs}" == "false" ]]; then
   if [[ "${_npm}" == "true" ]]; then
-    _uri="${_npm_http}/${_pkg}/-/${_tarfile}"
+    _uri="${_npm_http}/@${_ns}/${_pkg}/-/${_tarfile}"
+  elif [[ "${_npm}" == "false" ]]; then
+    if [[ "${_tag_name}" == 'pkgver' ]]; then
+      if [[ "${_git_http}" == "gitlab" ]]; then
+        _uri="${url}/archive/refs/tags/${_tag}.${_archive_format}"
+      fi
+    elif [[ "${_tag_name}" == "commit" ]]; then
+      if [[ "${_git_http}" == "github" ]]; then
+        _uri="${url}/archive/${_commit}.${_archive_format}"
+      elif [[ "${_git_http}" == "gitlab" ]]; then
+        _uri="${url}/-/archive/${_commit}/${_tarname}.${_archive_format}"
+      fi
+    fi
   fi
+fi
+if [[ "${_npm}" == "true" ]]; then
+  _tarfile="${_npm_tarfile}"
 fi
 _src="${_tarfile}::${_uri}"
 source+=(
@@ -134,9 +183,11 @@ source+=(
 sha256sums+=(
   "${_sum}"
 )
-noextract=(
-  "${_tarfile}"
-)
+if [[ "${_npm}" == "true" ]]; then
+  noextract=(
+    "${_tarfile}"
+  )
+fi
 validpgpkeys=(
   # Truocolo
   #   <truocolo@aol.com>
@@ -149,7 +200,7 @@ validpgpkeys=(
   '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
 )
 
-package_nodejs-rollup() {
+package_nodejs-opfs() {
   local \
     _npm_options=() \
     _find_opts=()

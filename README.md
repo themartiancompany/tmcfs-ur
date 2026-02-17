@@ -1,7 +1,7 @@
 [comment]: <> (SPDX-License-Identifier: AGPL-3.0)
 
 [comment]: <> (-------------------------------------------------------------)
-[comment]: <> (Copyright © 2024, 2025  Pellegrino Prevete)
+[comment]: <> (Copyright © 2024, 2025, 2026  Pellegrino Prevete)
 [comment]: <> (All rights reserved)
 [comment]: <> (-------------------------------------------------------------)
 
@@ -19,7 +19,7 @@
 [comment]: <> (License along with this program.)
 [comment]: <> (If not, see <https://www.gnu.org/licenses/>.)
 
-# `nodejs-rollup`
+# `nodejs-opfs`
 
 universal recipe for
 [user repo](
