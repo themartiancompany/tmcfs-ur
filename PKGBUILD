@@ -96,6 +96,7 @@ _pkgdesc=(
 )
 pkgdesc="${_pkgdesc[*]}"
 _commit="e54b2b307ebf1f7288d160eff341230d4fe704a4"
+_pkgver="0.0.1"
 pkgver="0.0.3"
 pkgrel=1
 arch=(
@@ -251,7 +252,7 @@ build() {
     npm \
       pack
     mv \
-      "${_ns}-${_Pkg}-${pkgver}.tgz" \
+      "${_ns}-${_Pkg}-${_pkgver}.tgz" \
       "${srcdir}"
   fi
 }
@@ -279,7 +280,7 @@ package_tmcfs() {
   npm \
     install \
     "${_npm_options[@]}" \
-    "${srcdir}/${_ns}-${_Pkg}-${pkgver}.tgz"
+    "${srcdir}/${_ns}-${_Pkg}-${_pkgver}.tgz"
   rm \
     -fr \
       "${pkgdir}/usr/etc"
