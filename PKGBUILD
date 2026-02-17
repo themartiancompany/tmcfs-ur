@@ -80,7 +80,8 @@ if [[ ! -v "${_archive_format}" ]]; then
     fi
   fi
 fi
-_pkg=tmcfs
+_Pkg=fs
+_pkg=tmc${_Pkg}
 pkgbase="${_pkg}"
 pkgname=(
   "${pkgbase}"
@@ -250,7 +251,7 @@ build() {
     npm \
       pack
     mv \
-      "${_ns}-${_pkg}-${pkgver}.tgz" \
+      "${_ns}-${_Pkg}-${pkgver}.tgz" \
       "${srcdir}"
   fi
 }
@@ -278,7 +279,7 @@ package_tmcfs() {
   npm \
     install \
     "${_npm_options[@]}" \
-    "${srcdir}/${_pkg}-${pkgver}.tgz"
+    "${srcdir}/${_ns}-${_Pkg}-${pkgver}.tgz"
   rm \
     -fr \
       "${pkgdir}/usr/etc"
