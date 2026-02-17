@@ -234,3 +234,4 @@ package_nodejs-opfs() {
 }
 
 # vim:set sw=2 sts=-1 et:
+26d4230e0bff3acbd8618eb34aeb93f08a94281e9ac0c54f3f8758ad5225d2d1  opfs-8560a11f42a0e0208e7e915daca6b811dfea860d.zip
