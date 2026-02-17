@@ -67,6 +67,9 @@ fi
 if [[ ! -v "_npm" ]]; then
   _npm="false"
 fi
+if [[ ! -v "_git" ]]; then
+  _git="false"
+fi
 if [[ ! -v "_git_http" ]]; then
   _git_http="github"
 fi
