@@ -28,10 +28,10 @@
 #     <pellegrinoprevete@gmail.com>
 #     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
 
-_os="$( \
+_os="$(
   uname \
     -o)"
-_evmfs_available="$( \
+_evmfs_available="$(
   command \
     -v \
     "evmfs" || \
@@ -49,7 +49,7 @@ if [[ "${_os}" == "Android" ]]; then
   # will have non-termux missing-provides bugged
   # life and dogeos android nodejs and nodejs-lts
   # builds.
-  _node_lts="$( \
+  _node_lts="$(
     ( pacman \
        -Q \
        "nodejs-lts" \
